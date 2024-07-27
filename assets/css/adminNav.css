@@ -1,0 +1,19 @@
+.adminNav {
+    background-color: var(--color-2);
+    padding: .5rem;
+    display: flex;
+    justify-content: center;
+    position: sticky;
+    top: 50px;
+    gap: .5rem;
+}
+
+@media (max-width: 640px){
+    .adminNav {
+        justify-content: start;
+        overflow-x: scroll;
+    }
+    .adminNav::-webkit-scrollbar {
+        display: none;
+    }
+}

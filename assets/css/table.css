@@ -1,0 +1,43 @@
+table {
+    border-collapse: collapse;
+    width: 100%;
+    border: 1px solid var(--color-2);
+}
+
+table th,
+table td {
+    padding: 8px;
+    text-align: center;
+}
+
+table tr:nth-child(even) {
+    background-color: var(--sidebar-bg);
+}
+
+table th {
+    background-color: var(--nav);
+}
+
+.movie_image {
+    width: 230px;
+}
+
+.movie_image img {
+    width: 230px;
+}
+
+@media (max-width: 640px) {
+    table {
+        width: 620px;
+    }
+
+    .table {
+        width: 100%;
+        overflow-x: scroll;
+    }
+
+    .table::-webkit-scrollbar {
+        height: 2px;
+        border-radius: 1px;
+    }
+}

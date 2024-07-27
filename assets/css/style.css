@@ -1,0 +1,271 @@
+:root {
+    --dark-1: #1e1d24;
+    --light-1: #ffffff;
+    --light-2: #eeeeee;
+    --color-1: #0f0f0f;
+    --color-2: #999999;
+    --color-3: #f0f0f0;
+    --color-4: #2358f7;
+    --bg-color: #f0f0f0;
+    --sidebar-bg: #ffffffb1;
+    --nav: #e1e1e1;
+    --nav-link-hover: #dad9d9;
+    --col-1: 1fr;
+    --col-2: repeat(2, 1fr);
+    --col-3: repeat(3, 1fr);
+    --col-4: repeat(4, 1fr);
+    --font-family-2: Georgia, 'Times New Roman', Times, serif;
+    --foreground-rgb: 0, 0, 0;
+    --background-start-rgb: 214, 219, 220;
+    --background-end-rgb: 255, 255, 255;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --bg-color: #0f0f0f;
+        --color-1: #e1e1e1;
+        --color-2: #666666;
+        --color-3: #0f0f0f;
+        --sidebar-bg: #ffffff1b;
+        --nav: #1f1f1f;
+        --foreground-rgb: 255, 255, 255;
+        --background-start-rgb: 0, 0, 0;
+        --background-end-rgb: 0, 0, 0;
+    }
+}
+
+* {
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    background-color: var(--bg-color);
+    color: var(--color-1);
+}
+
+::-webkit-scrollbar {
+    width: 10px;
+    background-color: rgb(192, 192, 192);
+}
+
+::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 5px grey;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: black;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #2e3285;
+}
+
+main {
+    min-height: calc(100vh - 50px);
+    max-width: 1200px;
+    margin-inline: auto;
+}
+
+a {
+    text-decoration: none;
+}
+
+dialog {
+    outline: none;
+    border: none;
+    background: transparent;
+    padding: 0;
+}
+
+.section {
+    margin-inline: auto;
+    max-width: 1280px;
+    padding: 5px 3vw;
+}
+
+.overflow-hidden {
+    overflow: hidden;
+}
+
+.display-none {
+    display: none;
+}
+
+.flex {
+    display: flex;
+}
+
+.flex-direction-column {
+    flex-direction: column;
+}
+
+.align-items-center {
+    align-items: center;
+}
+
+.justify-content-center {
+    justify-content: center;
+}
+
+.justify-content-between {
+    justify-content: space-between;
+}
+
+.center {
+    display: grid;
+    place-items: center;
+}
+
+.my-10 {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.sticky {
+    position: sticky;
+}
+
+.top-0 {
+    top: 0;
+}
+
+.top-50 {
+    top: 50px;
+}
+
+.size-16 {
+    font-size: 16px;
+}
+
+.p-10 {
+    padding: 10px;
+}
+
+.py-10 {
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.p-5 {
+    padding: 5px;
+}
+
+.py-10 {
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.pb-10 {
+    padding-bottom: 10px;
+}
+
+.btn {
+    background: #3f4450;
+    color: white;
+    height: min-content;
+    font-size: 14px;
+    padding: .5rem 1rem;
+    margin: 1px 0;
+    border-radius: 8px;
+    outline: none;
+    border: 1px solid transparent;
+    cursor: pointer;
+    width: max-content;
+}
+
+.btn:hover {
+    background: #000000;
+    color: white;
+    border: 1px solid #999999;
+}
+
+.btn:disabled,
+.btn:disabled:hover {
+    cursor: not-allowed;
+    background: var(--color-2);
+    border-color: transparent;
+}
+
+.error {
+    color: red;
+    background-color: rgb(255, 223, 223);
+}
+
+.success {
+    color: green;
+    background-color: rgb(189, 241, 189);
+}
+
+.msg {
+    border: 1px solid rgb(201, 201, 201);
+    padding: .8rem 1rem;
+    border-radius: 10px;
+    margin: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.closeBtn {
+    position: absolute;
+    right: 30px;
+    top: 30px;
+    font-weight: 300;
+    font-size: 2rem;
+    cursor: pointer;
+    padding: 0;
+    line-height: 1.2rem;
+    transform-origin: center center;
+    color: var(--color-1);
+}
+
+input,
+select,
+textarea {
+    outline: none;
+    border: none;
+    box-shadow: 0 0 2px 1px var(--color-2);
+    border-radius: 5px;
+    padding: .5rem 1rem;
+    margin-top: 4px;
+    background-color: var(--bg-color);
+}
+
+:is(input, select, textarea):focus {
+    box-shadow: 0 0 6px 3px var(--color-2);
+}
+
+option,
+input,
+select,
+textarea {
+    font-size: 1rem;
+    color: var(--color-1);
+}
+
+textarea {
+    resize: vertical;
+    min-height: 5rem;
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+    filter: invert(1);
+}
+
+@media (hover: hover) {
+    .overflow-hidden {
+        margin-right: 10px;
+    }
+}
+
+@media (max-width: 1200px) {
+    main {
+        margin-inline: 1rem;
+    }
+}

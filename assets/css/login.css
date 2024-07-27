@@ -1,0 +1,128 @@
+.login-page {
+    display: flex;
+    justify-content: center;
+    padding: 4rem 0;
+    min-height: calc(100vh - 50px);
+}
+
+.forms {
+    box-shadow: 0 0 2px 0 var(--color-2);
+    border-radius: 1rem;
+    padding: 2rem;
+}
+
+.forms button {
+    border: none;
+    background-color: transparent;
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-right: .5rem;
+    padding: .5rem;
+    position: relative;
+    color: var(--color-1);
+    transition: transform 800ms;
+}
+
+.overflow-hidden .forms button {
+    pointer-events: none;
+    z-index: -1;
+}
+
+.selected::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 4px;
+    background-color: var(--color-4);
+    border-radius: 2px;
+    animation: grow-line 400ms ease;
+}
+
+.forms form {
+    width: 600px;
+}
+
+.input-control {
+    display: flex;
+    flex-direction: column;
+    margin-top: 1rem;
+}
+
+.signup-form>div {
+    display: grid;
+    grid-template-columns: var(--col-2);
+    gap: 1rem;
+}
+
+input[type="submit"] {
+    background-color: var(--color-4);
+    color: white;
+}
+
+.err {
+    color: red;
+    min-height: 1rem;
+    margin-top: 3px;
+}
+
+#message,
+.message {
+    color: red;
+    background-color: rgb(231, 200, 200);
+    border-radius: 5px;
+    margin-top: 1rem;
+    padding: .5rem;
+    display: none;
+}
+
+@keyframes grow-line {
+    0% {
+        width: 0;
+    }
+
+    100% {
+        width: 100%;
+    }
+}
+
+@media (hover:hover) {
+
+    .forms button,
+    input[type="submit"] {
+        cursor: pointer;
+    }
+}
+
+@media (max-width: 700px) {
+    .forms form {
+        width: 400px;
+    }
+
+    .signup-form>div {
+        grid-template-columns: var(--col-1);
+        gap: 0;
+    }
+}
+
+@media (max-width: 500px) {
+    .forms form {
+        width: 300px;
+    }
+}
+
+@media (max-width: 400px) {
+    .login-page {
+        padding: 2rem 0;
+    }
+
+    .forms {
+        box-shadow: none;
+        width: 100%;
+    }
+
+    .forms form {
+        width: auto;
+    }
+}

@@ -1,0 +1,26 @@
+.profile> h3 {
+    margin-top: 0;
+}
+
+.profile {
+    margin-top: 10px;
+    margin-bottom: 1rem;
+    border-radius: 10px;
+    box-shadow: 0 0 6px 1px var(--color-2);
+    padding: 10px;
+}
+
+.profile>div {
+    display: flex;
+    justify-content: space-between;
+}
+.forms{
+    background-color: var(--bg-color);
+    color: var(--color-1);
+}
+@media (max-width: 640px){
+    .profile>div {
+        flex-direction: column;
+        gap: 10px;
+    }
+}

@@ -1,0 +1,147 @@
+nav {
+    position: sticky;
+    top: 0;
+    box-shadow: 0 0 3px 0 var(--color-1);
+    background-color: var(--nav);
+    color: var(--nav);
+    z-index: 2;
+}
+
+.logo {
+    font-weight: bold;
+    font-size: 1.2rem;
+    line-height: auto;
+}
+
+.hamburger {
+    display: flex;
+    align-items: center;
+}
+
+.hamburger,
+.closeNav {
+    display: none;
+}
+
+nav ul {
+    width: 100%;
+    list-style: none;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 0;
+    margin: 0;
+}
+
+nav li {
+    height: 50px;
+}
+
+nav a {
+    height: 100%;
+    padding: 0 2rem;
+    display: flex;
+    align-items: center;
+    color: var(--color-1);
+}
+
+nav .menu,
+nav .close {
+    line-height: 50px;
+    padding-inline: 1rem;
+}
+
+svg{
+    fill: var(--color-1);
+    stroke: var(--color-1);
+}
+
+nav .menu {
+    display: none;
+}
+
+nav .close {
+    padding-inline: 2rem;
+}
+
+nav .menu>svg,
+nav .close>svg {
+    cursor: pointer;
+}
+
+nav li:first-child {
+    margin-right: auto;
+}
+
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1000;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: none;
+}
+
+.sidebar {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 250px;
+    padding-top: 0.5rem;
+    z-index: 999999;
+    background-color: var(--sidebar-bg);
+    backdrop-filter: blur(10px);
+    box-shadow: -10px 0 10px rgba(0, 0, 0, 0.1);
+    transform: translateX(100%);
+    transition: transform 500ms ease;
+}
+
+.sidebar li {
+    width: 100%;
+}
+
+@media (hover: hover) {
+    nav a:hover {
+        background-color: var(--color-3);
+    }
+
+    nav li:first-child a:hover {
+        background-color: var(--gb-color);
+    }
+}
+
+@media (max-width: 800px) {
+    .hideOnMobile {
+        display: none;
+    }
+
+    nav .menu {
+        display: block;
+    }
+
+    .scroll-deactivate {
+        overflow: hidden;
+    }
+
+    .nav-hide {
+        display: none;
+    }
+
+    .nav-show {
+        display: block;
+        transform: translateX(0%);
+    }
+}
+
+@media (max-width: 400px) {
+    .sidebar {
+        width: 100%;
+    }
+}

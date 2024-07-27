@@ -1,0 +1,30 @@
+.tickets {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    
+}
+.tickets>div {
+    display: flex;
+    flex-direction: column;
+    width: min-content;
+    align-items: center;
+    margin: 15px auto;
+    box-shadow: 0 0 5px 0 #c2c2c2;
+    border-radius: 0 0 8px 8px;
+}
+
+.tickets button {
+    margin: 5px 0;
+}
+
+canvas {
+    border: 1px solid #c2c2c2;
+}
+
+main>button {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    box-shadow: 0 0 2px 1px white;
+}

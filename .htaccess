@@ -1,0 +1,7 @@
+RewriteEngine On
+
+# DirectoryIndex index.php index.html index.htm index2.html
+
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME}.php -f
+RewriteRule ^(.*)$ $1.php
