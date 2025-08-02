@@ -91,6 +91,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         $selectedSeats = $_POST['tickets'];
         $show_id = test_input($_POST['show']);
+        $movie_id = test_input($_POST['movie']);
 
         $email = $_SESSION['email'];
 
@@ -106,7 +107,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
 
         $user_id = mysqli_fetch_assoc(mysqli_query($conn, "SELECT user_id FROM users WHERE email='$email'"))['user_id'];
-        
         $payment_id = "MT" . time();
 
         $no_of_seats = count($selectedSeats);
@@ -116,34 +116,43 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         $_SESSION['payment_id'] = $payment_id;
         $_SESSION['total_amount'] = $total_amount;
+        $_SESSION['movie_id'] = $movie_id;
         $price = PRICE;
 
         foreach ($selectedSeats as $seat) {
             $seat_no = test_input($seat);
             mysqli_query($conn, "INSERT INTO tickets (price, payment_id, user_id, seat_no, show_id) VALUES ($price, '$payment_id', $user_id, '$seat_no', '$show_id')");
-            // $sql = "";
         }
 
-        $epay_url = "https://uat.esewa.com.np/epay/main";
+        $epay_url = "https://rc-epay.esewa.com.np/api/epay/main/v2/form";
 
-        $successurl = "http://localhost/payment-success.php?q=su";
-        $failedurl = "http://localhost/payment-failed.php?q=fu";
+        $successurl = "http://localhost/payment-success.php";
+        $failedurl = "http://localhost/payment-failed.php";
         $merchant_code = "EPAYTEST";
+        $secret = "8gBm/:&EnhH.1/q";
+        $data = "total_amount={$total_amount},transaction_uuid={$payment_id},product_code={$merchant_code}";
+        $s = hash_hmac('sha256', $data, $secret, true);
+        $signature = base64_encode($s);
         ?>
-        <form action="<?= $epay_url ?>" method="POST">
-            <input value="<?= $total_amount ?>" name="tAmt" type="hidden">
-            <input value="<?= $total_amount ?>" name="amt" type="hidden">
-            <input value="0" name="txAmt" type="hidden">
-            <input value="0" name="psc" type="hidden">
-            <input value="0" name="pdc" type="hidden">
-            <input value="<?= $merchant_code ?>" name="scd" type="hidden">
-            <input value="<?= $payment_id ?>" name="pid" type="hidden">
-            <input value="<?= $successurl ?>" type="hidden" name="su">
-            <input value="<?= $failedurl ?>" type="hidden" name="fu">
-        </form>
-        <script>
-            document.querySelector('form').submit();
-        </script>
+            <form action="<?= $epay_url ?>" method="POST" style="display: none;">
+                <input type="text" id="amount" name="amount" value="<?= $total_amount ?>" required>
+                <input type="text" id="tax_amount" name="tax_amount" value="0" required>
+                <input type="text" id="total_amount" name="total_amount" value="<?= $total_amount ?>" required>
+                <input type="text" id="transaction_uuid" name="transaction_uuid" value="<?= $payment_id ?>" required>
+                <input type="text" id="product_code" name="product_code" value="<?= $merchant_code ?>" required>
+                <input type="text" id="product_service_charge" name="product_service_charge" value="0" required>
+                <input type="text" id="product_delivery_charge" name="product_delivery_charge" value="0" required>
+                <input type="text" id="success_url" name="success_url" value="<?= $successurl ?>" required>
+                <input type="text" id="failure_url" name="failure_url" value="<?= $failedurl ?>" required>
+                <input type="text" id="signed_field_names" name="signed_field_names"
+                    value="total_amount,transaction_uuid,product_code" required>
+                <input type="text" id="signature" name="signature" value="<?= $signature ?>" required>
+                <input value="Submit" type="submit">
+            </form>
+
+            <script>
+                document.querySelector('form').submit();
+            </script>
 
         <?php
         echo "Tickets Booked";

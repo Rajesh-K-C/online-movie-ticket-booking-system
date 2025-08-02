@@ -96,6 +96,7 @@ head(title: $row['movie_name'] . " Movie", cssList: $cssList);
                             </div>
                             <div class="seats">
                                 <form action="payment.php" method="post">
+                                    <input type="hidden" value="<?= $_GET['id'] ?>" name="movie">
                                     <div class="all-seats">
                                     </div>
                                 </form>
