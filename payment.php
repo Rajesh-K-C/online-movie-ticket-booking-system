@@ -88,6 +88,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             "H8",
             "H9"
         ];
+        $path = dirname((isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http")
+            . "://"
+            . $_SERVER['HTTP_HOST']
+            . $_SERVER['REQUEST_URI']);
 
         $selectedSeats = $_POST['tickets'];
         $show_id = test_input($_POST['show']);
@@ -126,33 +130,33 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         $epay_url = "https://rc-epay.esewa.com.np/api/epay/main/v2/form";
 
-        $successurl = "http://localhost/payment-success.php";
-        $failedurl = "http://localhost/payment-failed.php";
+        $successurl = "{$path}/payment-success.php";
+        $failedurl = "{$path}/payment-failed.php";
         $merchant_code = "EPAYTEST";
         $secret = "8gBm/:&EnhH.1/q";
         $data = "total_amount={$total_amount},transaction_uuid={$payment_id},product_code={$merchant_code}";
         $s = hash_hmac('sha256', $data, $secret, true);
         $signature = base64_encode($s);
         ?>
-            <form action="<?= $epay_url ?>" method="POST" style="display: none;">
-                <input type="text" id="amount" name="amount" value="<?= $total_amount ?>" required>
-                <input type="text" id="tax_amount" name="tax_amount" value="0" required>
-                <input type="text" id="total_amount" name="total_amount" value="<?= $total_amount ?>" required>
-                <input type="text" id="transaction_uuid" name="transaction_uuid" value="<?= $payment_id ?>" required>
-                <input type="text" id="product_code" name="product_code" value="<?= $merchant_code ?>" required>
-                <input type="text" id="product_service_charge" name="product_service_charge" value="0" required>
-                <input type="text" id="product_delivery_charge" name="product_delivery_charge" value="0" required>
-                <input type="text" id="success_url" name="success_url" value="<?= $successurl ?>" required>
-                <input type="text" id="failure_url" name="failure_url" value="<?= $failedurl ?>" required>
-                <input type="text" id="signed_field_names" name="signed_field_names"
-                    value="total_amount,transaction_uuid,product_code" required>
-                <input type="text" id="signature" name="signature" value="<?= $signature ?>" required>
-                <input value="Submit" type="submit">
-            </form>
+        <form action="<?= $epay_url ?>" method="POST" style="display: none;">
+            <input type="text" id="amount" name="amount" value="<?= $total_amount ?>" required>
+            <input type="text" id="tax_amount" name="tax_amount" value="0" required>
+            <input type="text" id="total_amount" name="total_amount" value="<?= $total_amount ?>" required>
+            <input type="text" id="transaction_uuid" name="transaction_uuid" value="<?= $payment_id ?>" required>
+            <input type="text" id="product_code" name="product_code" value="<?= $merchant_code ?>" required>
+            <input type="text" id="product_service_charge" name="product_service_charge" value="0" required>
+            <input type="text" id="product_delivery_charge" name="product_delivery_charge" value="0" required>
+            <input type="text" id="success_url" name="success_url" value="<?= $successurl ?>" required>
+            <input type="text" id="failure_url" name="failure_url" value="<?= $failedurl ?>" required>
+            <input type="text" id="signed_field_names" name="signed_field_names"
+                value="total_amount,transaction_uuid,product_code" required>
+            <input type="text" id="signature" name="signature" value="<?= $signature ?>" required>
+            <input value="Submit" type="submit">
+        </form>
 
-            <script>
-                document.querySelector('form').submit();
-            </script>
+        <script>
+            document.querySelector('form').submit();
+        </script>
 
         <?php
         echo "Tickets Booked";

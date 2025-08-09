@@ -1,6 +1,6 @@
 <?php
 session_start();
-if (isset ($_SESSION['role'])) {
+if (isset($_SESSION['role'])) {
     $response = ['success' => false, 'message' => 'You are already logged in.'];
 } elseif ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Get JSON data from the request
@@ -9,8 +9,8 @@ if (isset ($_SESSION['role'])) {
 
     // Check if email and password are provided
     if (
-        isset ($data['email']) && !empty ($data['email']) &&
-        isset ($data['password']) && !empty ($data['password'])
+        isset($data['email']) && !empty($data['email']) &&
+        isset($data['password']) && !empty($data['password'])
     ) {
         include_once "../includes/functions.php";
         include_once "../includes/connection.php";
@@ -24,12 +24,12 @@ if (isset ($_SESSION['role'])) {
         if (mysqli_num_rows($result) > 0) {
             $row = mysqli_fetch_assoc($result);
             if (password_verify($password, $row['password'])) {
-                // password: Aa@@1234
+
                 $response = ['success' => true, 'message' => 'Login successful'];
                 setSession("admin", $email);
             }
         } // If no match found
-        if (!isset ($response)) {
+        if (!isset($response)) {
             $response = ['success' => false, 'message' => 'Invalid email or password '];
         }
     } else {
@@ -40,7 +40,6 @@ if (isset ($_SESSION['role'])) {
     // Invalid request method
     $response = ['success' => false, 'message' => 'Invalid request method'];
 }
-
 
 // Set response headers
 header('Content-Type: application/json');
