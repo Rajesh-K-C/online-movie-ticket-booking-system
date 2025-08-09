@@ -47,6 +47,28 @@ signUpForm.addEventListener("submit", async (form) => {
     const isPasswordValid = validatePassword(password, Query("#pErr"));
     const isConfirmPasswordValid = validateConfirmPassword(password, cPassword, Query("#cpErr"));
 
+    let btn = form.login;
+
+    const setBtn = (loading = false) => {
+        if (!loading) {
+            btn.value = "Register";
+            btn.style.cursor = "pointer"
+        } else {
+            btn.value = "Loading...";
+            btn.style.cursor = "not-allowed"
+        }
+    }
+
+    const setMessage = (msg) => {
+        setTimeout(() => {
+            message.textContent = "";
+            message.style.display = "none";
+        }, 3000);
+        message.textContent = msg;
+        message.style.display = "block";
+        setBtn()
+    }
+
     if (isFirstNameValid && isLastNameValid && isEmailValid && isPhoneValid && isPasswordValid && isConfirmPasswordValid) {
 
         const data = {
@@ -77,11 +99,11 @@ signUpForm.addEventListener("submit", async (form) => {
                     window.location.href = "./";
                 }
             } else {
-                message.textContent = responseData.message;
-                message.style.display = "block";
+                setMessage(responseData.message)
             }
         } catch (error) {
             console.error('There was a problem with the form submission:', error);
+            setMessage('There was a problem with the form submission')
         }
     } else {
         message.style.display = "none";

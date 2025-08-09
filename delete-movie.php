@@ -6,22 +6,11 @@ if (isset($_SESSION['role']) && $_SESSION['role'] == "admin") {
         include_once "includes/functions.php";
         $id = (int) test_input($_GET['id']);
 
-        $result = mysqli_query($conn, "SELECT ticket_id FROM tickets t JOIN shows s ON t.show_id = s.show_id WHERE s.movie_id = $id");
+        $result = mysqli_query($conn, "SELECT ticket_id FROM tickets t INNER JOIN shows s ON t.show_id = s.show_id WHERE CONCAT(s.date, ' ', s.show_time) > NOW() AND s.movie_id = $id AND t.ticket_status = 'Booked'");
         
         if (mysqli_num_rows($result) > 0): ?>
             <script>
-                alert("Tickets for this movie have been booked. You cannot delete this movie.");
-                location.href = './dashboard?page=movies';
-            </script>
-            <?php
-            die();
-        endif;
-        
-        $result = mysqli_query($conn, "SELECT show_id FROM shows WHERE movie_id = $id");
-
-        if (mysqli_num_rows($result) > 0): ?>
-            <script>
-                alert("This movie has shows. You cannot delete this movie.");
+                alert("Tickets have been booked for this movie. You cannot delete it until all its shows have ended.");
                 location.href = './dashboard?page=movies';
             </script>
             <?php

@@ -10,7 +10,7 @@
 
     function isBooked($conn, $id)
     {
-        $result = mysqli_query($conn, "SELECT ticket_id FROM tickets WHERE show_id = $id");
+        $result = mysqli_query($conn, "SELECT ticket_id FROM tickets t INNER JOIN shows s ON t.show_id = s.show_id WHERE CONCAT(s.date, ' ', s.show_time) > NOW() AND t.show_id = $id AND t.ticket_status = 'Booked'");
         if (mysqli_num_rows($result) > 0) {
             return true;
         } else {
